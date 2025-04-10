@@ -8,4 +8,3 @@ The main frames of each question are provided such that the function part is lef
 
 These questions only illustrate some basis of Data Structure. However, they can be your keys of the door to new world of CS. After finishing these questions, you may have a brief view of what the Data Structure is.
 
-박지성 테스트asdasdadasd
