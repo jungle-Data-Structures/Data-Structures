@@ -71,7 +71,7 @@ int main()
 		case 3:
 			printf("The resulting sorted linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			//removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -88,9 +88,50 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-int insertSortedLL(LinkedList *ll, int item)
+int insertSortedLL(LinkedList *ll, int item)   // LinkedList *ll: 연결리스트 구조체 가르킴, int item:리스트에 넣고 싶은 값
 {
-	/* add your code here */
+	/* 
+	1. 리스트 자체가 없으면 -1 리턴
+	2. 리스트가 NULL로 비었으면 노드 추가
+	3. 리스트에 이미 값이 있으면, 현재 기준에 따라 크냐 작냐에 따라 처리
+	*/
+
+	ListNode *temp;   // 현재 노드를 가르키는 포인터
+	int curindex = 0;    // 현재 몇 번 노드를 보고 있는지 추적하는 변수(최종적으로 삽입할 인덱스)
+
+	// 리스트 자체가 없으면 -1
+	if(ll == NULL){   // 연결리스트 자체가 NULL이면 실패 반환
+		return -1;
+	}
+	else{ // 리스트안에 처리
+		// 리스트 내용이 NULL이면 수행
+		temp = ll -> head;   // 연결리스트의 첫 번째 노드부터 시작
+		while(curindex <= ll -> size){  // 리스트 끝까지 탐색
+			if(curindex == ll -> size){  // 연결 리스트에 아무것도 없음(현재 인덱스랑 전체 사이즈랑 같다)
+				insertNode(ll, curindex, item);   //노드 추가
+				break;
+			}
+
+			// 리스트에 이미 값이 있다면 기준보다 크냐 작냐에 따라 처리
+			// 오름차순 정렬에 따라 값 인서트
+			else{
+				if(temp->item > item){  // 현재 노드 값이 새 값보다 클 경우
+					insertNode(ll, curindex, item);  //바로 그 위치에 삽입
+					break;
+				}
+				else if(temp->item < item){  // 만약, 현재 노드 값이 새 값보다 작다면
+					curindex = curindex + 1;  // 다음 노드로 이동하기 위해 인덱스 +1
+					temp =temp->next;  // 노드 위치도 이동시킨다
+
+				}
+				else{  // 이미 존재할 경우 예외처리
+				return -1;  // 리턴 -1 반환
+				break;
+				}
+			}
+		}
+	}
+	return curindex;  // 현재 리스트 값들 출력
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
