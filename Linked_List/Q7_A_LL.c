@@ -87,7 +87,25 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead)
 {
-	/* add your code here */
+	/* 
+	받은 리스트의 값을 거꾸로 출력되게만 하면된다.
+	그렇기 위해선 받았던 값을 재귀를 통해 역순으로 다시 출력하면되지 않을까 싶다.
+	*/
+
+	if(*ptrHead == NULL || (*ptrHead)->next == NULL){
+		return;
+	}
+
+	ListNode *first = *ptrHead;  // 현재 head로 앞 노드를 의미한다.
+    ListNode *rest = first->next;   // first를 제외한 나머지 리스트
+
+    RecursiveReverse(&rest);   // rest를 역순으로 처리합니다. 호출 종료시 rest는 뒤집힌 리스트의 새로운 head가 됩니다.
+
+    first->next->next = first;  // first->next는 현재 rest의 마지막 노드가 되고 있는데, 그 노드의 next를 first로 연결 -> 역방향 연결
+    first->next = NULL;  // first는 맨끝에 오니 처리 
+
+    *ptrHead = rest;   // 뒤집힌 리스트의 새로운 head(rest)를 원래 head에 갱신
+	// 1->2->3->NULL 이 3->2->1->NULL 로 바뀝니다.
 }
 
 //////////////////////////////////////////////////////////////////////////////////

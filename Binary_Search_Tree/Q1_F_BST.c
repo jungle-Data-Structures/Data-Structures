@@ -2,8 +2,24 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 /* CE1007/CZ1007 Data Structures
-Lab Test: Section F - Binary Search Trees Questions
+Lab Test: Section F – 이진 탐색 트리 (Binary Search Trees)
 Purpose: Implementing the required functions for Question 1 */
+
+/* 
+1. levelOrderTraversal
+[문제]
+큐(queue)를 사용해서 이진 트리를 레벨 순서(level order)로 순회하는 반복(iterative) C 함수 작성.
+
+함수 원형: void levelOrderIterative(BSTNode *root);
+
+[요점]
+루트부터 각 레벨을 순서대로 출력
+큐에 데이터를 넣거나 뺄 때는 enqueue(), dequeue()만 사용
+큐가 비어있지 않으면 먼저 비워야 함
+
+예시 출력:
+20, 15, 50, 10, 18, 25, 80
+ */
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -93,8 +109,29 @@ int main()
 
 void levelOrderTraversal(BSTNode* root)
 {
+	Queue q;			//순회하며 방문할 노드들을 임시로 저장
+	q.head = NULL;
+	q.tail = NULL;
 
-    /* add your code here */
+	BSTNode *temp;
+	temp = 	root;
+
+	if(temp == NULL)
+		return;
+	else
+	{
+		enqueue(&q.head, &q.tail, temp);	//루트 노드를 큐에 삽이	
+		while(!isEmpty(q.head))
+		{
+			temp = dequeue(&q.head, &q.tail);	//큐에서 노드를 꺼내 해당 노드의 값 출력
+			printf("%d ",temp->item);
+
+			if(temp->left != NULL)
+				enqueue(&q.head, &q.tail, temp->left);
+			if(temp->right != NULL)
+				enqueue(&q.head, &q.tail, temp->right);
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -69,7 +69,7 @@ int main()
 			moveOddItemsToBack(&ll); // You need to code this function
 			printf("The resulting linked list after moving odd integers to the back of the linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
+			// removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -86,7 +86,38 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	/* 
+	입력된 리스트에서 홀수 값을 모두 리스트 맨뒤로 보내야한다.
+	1. 입력 받은 리스트에서 2로 나누었을때 나머지가 존재함을 확인해 홀수임을 판단.
+	2. 순회하면서 홀수에 해당되면 해당 수 제거후 맨뒤 NULL인 부분에 재연결.
+	3. 사이즈는 동일하고 맨뒤 head와 NULL처리 잘 해줘야한다.
+	*/
+	if(ll == NULL || ll->head == NULL){  // 예외처리
+		return;
+	}
+
+	int index = 0;   // 현재 검사 중인 인덱스
+	int count = 0;  // 반복 횟수 지정자
+	int size = ll->size;  // 원래 크기 저장
+
+	// 리스트 처음부터 끝까지 순회(무한 루프 방지와 범위 검사를 수행)
+	while (count < size && index < size) {
+		ListNode *node = findNode(ll, index);   // 현재 index에 해당하는 노드를 가져온다
+
+		if (node == NULL) break;  // 안정성 확보: 노드가 NULL이면 종료
+		
+		if(node->item % 2 != 0){     // 나머지가 0이 아니면,즉 홀수이면 처리
+		int value = node->item;    // 값을 따로 저장해둠 (삭제하면 사라지기 때문)
+		removeNode(ll, index);    // 해당 인덱스 제거
+		insertNode(ll, ll->size, value);   // 맨뒤 다시 추가, 사이즈 이미 줄였어서 그 자리가 끝이다.
+	
+	// 삭제했기 때문에 같은 index에서 다시 검사(index 유지)
+	} 
+	else {
+		index++;   // 짝수면 다음 index로 넘어감
+	}   
+	count++;   // 반복 횟수 증가
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

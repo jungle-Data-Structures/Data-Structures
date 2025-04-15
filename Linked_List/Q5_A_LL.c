@@ -102,7 +102,33 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	/* 
+	하나의 연결 리스트에서 앞,뒤 절반을 나눠서 앞리스트, 뒷리스트를 출력하면 된다.
+	만약, 홀수라면 앞 리스트에 하나를 더 쓴다.
+	리스트를 받고 나눈다.
+	*/
+
+	if(ll == NULL || ll->head == NULL){
+		return;
+	}
+
+	int totalSize = ll->size ;   // 전체 노드의 수를 저장
+	int frontSize = (totalSize + 1) / 2;  // 홀수 일시 앞에 하나 더
+	// 애초에 홀수 일시 +1을 하여 사이즈를 늘림(짝수 일때 +1해도 값은 같음)
+	int i;
+
+	// 총 사이즈(인덱스)를 0부터 올리며 하나씩 찾는다.
+	for (i = 0; i< totalSize; i++) {
+		ListNode *curNode = findNode(ll,i);   // 입력 리스트 ll에서 i번째 노드 가져옴.
+		// findNode는 연결리스트를 처음부터 따라가면서 i번째 위치에 있는 노드를 반환.
+		if(curNode == NULL) continue;  // 유효한 노드가 없으면 건너뛰고 다음 노드 탐색(예외처리)
+
+		if(i < frontSize) {   // 앞에 미리 계산한 앞 사이즈보다 작으면 앞 리스트에 배정
+			insertNode(resultFrontList, resultFrontList->size, curNode->item);
+		} else {   // 그렇지 않으면 뒷 리스트에 배정
+			insertNode(resultBackList, resultBackList->size, curNode->item);
+		}
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

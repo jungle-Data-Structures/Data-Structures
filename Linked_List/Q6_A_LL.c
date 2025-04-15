@@ -88,7 +88,47 @@ int main()
 
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
+    /*
+	리스트에서 가장 큰 요소가 앞에 위치해서 출력하면 된다.
+	입력 받은 리스트에서 max인 값을 뽑아서 맨 앞으로 보내기 위해
+	temp에 저장하고 나머지 값을 차례대로 입력하여 출력하면 될 것 같다.
+	헤드를 순회하면서 제일 높은 값을 추출해야 좋을 것 같다.
+	GPT한테 물어보니 연결만 바꿔주면 된다고 한다.
+	*/
+
+	if(ptrHead == NULL || *ptrHead == NULL || (*ptrHead)->next == NULL){    // 만약에 빈 리스트이거나 노드 1개일때 처리
+		return 0;
+	}
+
+	ListNode *maxNode = *ptrHead;  // 최대값을 가진 노드를 저장할 포인터, 처음엔 head로 시작
+	ListNode *maxPrev = NULL;      // 최대 노드의 이전 노드를 저장할 포인터 (연결 변경용)
+
+	ListNode *prev = NULL;         // 현재 노드의 이전 노드 추적용 포인터
+	ListNode *curr = *ptrHead;     // 현재 순회 중인 노드를 가리키는 포인터
+
+	// 최대값 찾기
+	while(curr != NULL) {
+		if(curr->item > maxNode->item){
+			maxNode = curr;     // 더 큰 값을 발견하면 maxNode 갱신
+			maxPrev = prev;     // 그리고 그 노드의 이전 노드도 기억해둠(전 노드로 이동시 사용)
+		}
+		prev = curr;            // prev를 현재 노드로 이동
+		curr = curr->next;      // 다음 노드로 이동
+	}
+
+	// 최댓값이 이미 맨 앞(head)에 있다면 그대로 진행
+	if(maxPrev == NULL) {
+		return 0;
+	}
+
+	// maxNode를 기존 위치에서 제거 (이전 노드의 next를 다음 노드로 연결)
+	maxPrev -> next = maxNode -> next;
+
+	// maxNode를 리스트 맨 앞에 삽입
+	maxNode->next = *ptrHead;
+	*ptrHead = maxNode;
+
+	return 1;    // 작업 성공 시 1 반환
 }
 
 //////////////////////////////////////////////////////////////////////////////////
