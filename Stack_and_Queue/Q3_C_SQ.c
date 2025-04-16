@@ -103,7 +103,62 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	int size = s->ll.size;
+	if (size%2 != 0)
+	{
+		return 0;
+	}
+	for (int i = 0; i < size/2; i++)
+	{
+		int a = pop(s);
+		int b = pop(s);
+		if (abs(a - b) != 1)
+			return 0;
+	}
+	
+	return 1;
+}
+
+int isStackPairwiseConsecutive(Stack *s)
+{
+	Stack temp;
+	temp.ll.head = NULL;
+	temp.ll.size = 0;
+	temp.ll.tail = NULL;
+
+	int a, b;
+	int result = 1; // 일단 성공이라고 가정
+
+	while (!isEmptyStack(s))
+	{
+		a = pop(s);
+
+		if (isEmptyStack(s))
+		{
+			// 홀수개라 쌍 안 맞음
+			push(&temp, a); // 되돌릴 때를 위해 저장
+			result = 0;
+			break;
+		}
+
+		b = pop(s);
+		if (abs(a - b) != 1)
+		{
+			result = 0;
+		}
+
+		// 되돌릴 때를 위해 저장
+		push(&temp, a);
+		push(&temp, b);
+	}
+
+	// 스택 원상 복구
+	while (!isEmptyStack(&temp))
+	{
+		push(s, pop(&temp));
+	}
+
+	return result;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -86,7 +86,52 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	int originalSize = ll->size;
+	int moved = 0; // 홀수 몇 개 뒤로 보냈는지 체크
+
+	for (int i = 0; i < originalSize; i++)
+	{
+		ListNode *n = findNode(ll, i - moved); // remove로 인해 위치 보정
+
+		if (n->item % 2 != 0)
+		{
+			insertNode(ll, ll->size, n->item); // 맨 끝에 삽입
+			removeNode(ll, i - moved);		   // 원래 위치에서 삭제
+			moved++;
+		}
+	}
+
+	// int first = 0;
+
+	// for (int i = 0; i < ll->size; i++)
+	// {
+	// 	ListNode *n = findNode(ll, i);
+	// 	if (n->item % 2 != 0)
+	// 	{
+	// 		first = n->item;
+	// 		insertNode(ll, ll->size, n->item);
+	// 		removeNode(ll, i);
+	// 		break;
+	// 	}
+	// }
+
+	// while (1){
+	// 	for (int k = 0; k < ll->size; k++)
+	// 	{
+	// 		ListNode *n = findNode(ll, k);
+	// 		if (n->item%2 != 0)
+	// 		{
+	// 			if(n->item == first){
+	// 				return;
+	// 			}
+	// 			else{
+	// 				insertNode(ll, ll->size, n->item);
+	// 				removeNode(ll, k);
+	// 			}
+				
+	// 		}
+	// 	}
+	// }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

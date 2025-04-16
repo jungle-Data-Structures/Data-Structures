@@ -102,14 +102,94 @@ int main()
 }
 
 ////////////////////////////////////////////////////////////
-int balanced(char *expression)
-{
-/* add your code here */
+int balanced(char *expression){
+	Stack n;
+	for (int i = 0; expression[i] != '\0'; i++){
+		char ch = expression[i];
+		if (ch=='{' || ch == '[' || ch == '(')
+		{
+			push(&n, ch);
+		}
+		else
+		{
+			int k = pop(&n);
+			if (k != ch)
+			{
+				return 0;
+			}
+			
+		}
+		
+	}
+	return 1;
 }
 
-////////////////////////////////////////////////////////////
+	// int balanced(char *expression)
+	// {
+	// 	Stack bra1;
+	// 	bra1.ll.head = NULL;
+	// 	bra1.ll.size = 0;
+	// 	Stack bra2;
+	// 	bra2.ll.head = NULL;
+	// 	bra2.ll.size = 0;
+	// 	Stack bra3;
+	// 	bra3.ll.head = NULL;
+	// 	bra3.ll.size = 0;
+	// 	Stack bra4;
+	// 	bra4.ll.head = NULL;
+	// 	bra4.ll.size = 0;
+	// 	Stack bra5;
+	// 	bra5.ll.head = NULL;
+	// 	bra5.ll.size = 0;
+	// 	Stack bra6;
+	// 	bra6.ll.head = NULL;
+	// 	bra6.ll.size = 0;
+	// 	for (int i = 0; expression[i] != '\0'; i++)
+	// 	{
+	// 		char ch = expression[i];
+	// 		if (ch == '{')
+	// 		{
+	// 			push(&bra1, ch);
+	// 		}
+	// 		else if (ch == '}')
+	// 		{
+	// 			push(&bra2, ch);
+	// 		}
+	// 		else if (ch == '[')
+	// 		{
+	// 			push(&bra3, ch);
+	// 		}
+	// 		else if (ch == ']')
+	// 		{
+	// 			push(&bra4, ch);
+	// 		}
+	// 		else if (ch == '(')
+	// 		{
+	// 			push(&bra5, ch);
+	// 		}
+	// 		else
+	// 		{
+	// 			push(&bra6, ch);
+	// 		}
+	// 	}
+	// 	if (bra1.ll.size != bra2.ll.size)
+	// 	{
+	// 		return 1;
+	// 	}
+	// 	if (bra2.ll.size != bra3.ll.size)
+	// 	{
+	// 		return 1;
+	// 	}
+	// 	if (bra4.ll.size != bra5.ll.size)
+	// 	{
+	// 		return 1;
+	// 	}
+	// 	return 0;
+	// }
 
-void removeAllItemsFromStack(Stack *s)
+	////////////////////////////////////////////////////////////
+
+	void removeAllItemsFromStack(Stack *s)
 {
 	if (s == NULL)
 		return;
@@ -181,7 +261,7 @@ void printList(LinkedList *ll){
 		printf("Empty");
 	while (cur != NULL)
 	{
-		printf("%d ", cur->item);
+		printf("%d", cur->item);
 		cur = cur->next;
 	}
 	printf("\n");
