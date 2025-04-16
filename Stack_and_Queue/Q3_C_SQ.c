@@ -103,7 +103,31 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+  /* 
+  1. 만약에 스택의 크기가 홀수이면 연속되지 않음.(예외처리)
+  2. 순회하여 두 개 값 비교하여 연속되면 통과하고 다음 케이스 확인
+  3. 그렇지 않으면 연속되지 않음.
+  */
+
+  Stack temp;
+  temp.ll.head = NULL;  // 첫 헤드값은 NULL임
+  temp.ll.size = 0;  // 사이즈도 0일 것임
+
+  if(s->ll.size % 2 != 0)
+  return 0;   // 비정상 출력
+
+  while(!isEmptyStack(s)){
+	push(&temp, pop(s));
+  }
+
+  while(!isEmptyStack(&temp)){
+	int item1 = pop(&temp);
+	int item2 = pop(&temp);
+
+	if(abs(item1 - item2) != 1)   // 두개를 뺄을 때, 차가 1이면 연속된 수이다.(절댓값이 쓰어져야 -1이어도 판정가능)
+	return 0;    // 정상 출력
+  }
+  return 1;  // 위 사항 빼고는 모두 비정상 출력
 }
 
 //////////////////////////////////////////////////////////////////////////////////
