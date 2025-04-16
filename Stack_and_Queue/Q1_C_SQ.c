@@ -14,19 +14,19 @@ Purpose: Implementing the required functions for Question 1 */
 typedef struct _listnode
 {
 	int item;
-	struct _listnode *next;
+	struct _listnode *next;  // 단일 노드를 정의하는 구조체 (값과 다음 노드를 가짐)
 } ListNode;	// You should not change the definition of ListNode
 
 typedef struct _linkedlist
 {
 	int size;
-	ListNode *head;
+	ListNode *head;  // 연결 리스트 구조 (노드 수와 첫 노드 포인터를 포함)
 } LinkedList;	// You should not change the definition of LinkedList
 
 
 typedef struct _queue
 {
-	LinkedList ll;
+	LinkedList ll;   // 큐는 내부적으로 LinkedList를 이용해 구성됨
 } Queue;  // You should not change the definition of Queue
 
 ///////////////////////// function prototypes ////////////////////////////////////
@@ -116,18 +116,33 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	/* 연결 리스트를 큐로 복사하는 함수 */
+    ListNode *cur = ll->head;   // 노드 첫번째부터 지정
+    while (cur != NULL) {       // NULL일때까지 실행
+        enqueue(q, cur->item);  // 연결 리스트의 각 값을 큐에 삽입
+        cur = cur->next;        // 커서를 다음으로 옮긴다
+    }
 }
 
-void removeOddValues(Queue *q)
+
+void removeOddValues(Queue *q)  // 구현 안해도되는 문항임(짝수 제거 우선)
 {
-	/* add your code here */
+	if(q == NULL)   // q가 NULL이면 그냥 리턴
+	return;
+
+	int count = q -> ll.size;    // 큐에 들어간 길이만큼 받아오기위함
+
+	for(int i = 0; i < count; i++){
+		int item = dequeue(q);  // 큐의 모든 item을 순회하면서 각 큐에서 제거
+		if (item % 2 == 0)      // 그 아이템이 짝수인 경우 다시 큐에 추가
+		enqueue(q, item);       // 다시 큐에 넣음
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
 void enqueue(Queue *q, int item) {
-	insertNode(&(q->ll), q->ll.size, item);
+	insertNode(&(q->ll), q->ll.size, item);   // 연결 리스트 뒤에 추가
 }
 
 int dequeue(Queue *q) {
@@ -135,10 +150,10 @@ int dequeue(Queue *q) {
 
 	if (!isEmptyQueue(q)) {
 		item = ((q->ll).head)->item;
-		removeNode(&(q->ll), 0);
+		removeNode(&(q->ll), 0);    // 연결 리스트 앞에서 삭제
 		return item;
 	}
-	return -1;
+	return -1;    // 큐가 비어있으면 -1 반환
 }
 
 int isEmptyQueue(Queue *q) {
@@ -153,9 +168,8 @@ void removeAllItemsFromQueue(Queue *q)
 	if (q == NULL)
 		return;
 	count = q->ll.size;
-
 	for (i = 0; i < count; i++)
-		dequeue(q);
+		dequeue(q);    // 큐가 빌 때까지 dequeue 반복
 }
 
 

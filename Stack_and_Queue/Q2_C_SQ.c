@@ -113,12 +113,30 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+    ListNode *cur = ll->head;
+	while (cur != NULL) {
+		push(s, cur->item);
+		cur = cur -> next;
+	}
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+	Stack stack;			//새로운 stack 생성
+	stack.ll.head = NULL;
+	stack.ll.size = 0;
+
+	while(!isEmptyStack(s))
+	{
+		push(&stack, pop(s));	//원래 스택에서 아이템을 꺼내 임시 스택에 넣음
+	}
+
+	while(!isEmptyStack(&stack))
+	{
+		int item = pop(&stack);		//임시 스택에서 아이템을 꺼내서 홀수인 경우, 원래 스택에 다시 pop
+		if(item % 2 != 0)
+			push(s,item);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
