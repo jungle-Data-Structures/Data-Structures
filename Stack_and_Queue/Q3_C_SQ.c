@@ -114,7 +114,7 @@ int isStackPairwiseConsecutive(Stack *s)
   temp.ll.size = 0;  // 사이즈도 0일 것임
 
   if(s->ll.size % 2 != 0)
-  return 0;   // 비정상 출력
+  return 0;   // 정상 출력
 
   while(!isEmptyStack(s)){
 	push(&temp, pop(s));

@@ -116,7 +116,24 @@ int main()
 int identical(BTNode *tree1, BTNode *tree2)
 
 {
-   /* add your code here */
+   /*
+   두개의 이진 트리가 구조적으로 동일한지 재귀 함수를 통해 구현 하면 된다.
+   만약에 같으면 1반환, 다르면 0을 반환한다.
+   둘다 NULL 일시 1, 하나만 NULL이면 0, 값이 달라도 NULL이다.
+   */
+
+   if(tree1 == NULL && tree2 == NULL)    // 트리가 비어있으면 동일하므로 1(true)
+   return 1;
+
+   else if(tree1 != NULL && tree2 != NULL) {    // 두 트리 다 NULL아닐시 확인
+    return(
+        tree1->item == tree2->item &&           // 트리 1,2 아이템 값이 같아야한다.
+        identical(tree1->left, tree2->left)&&   // 트리 1,2의 왼쪽과 오른쪽 노드를 재귀적으로 모두 확인한다. 
+        identical(tree2->right,tree2->right)    // 트리 왼쪽과 오른쪽 노드를 탐색한다. 해당 아이템도 같아야한다.
+    );
+   }
+   else
+   return 0;   // 그 외 사항들 모두 false
 }
 
 /////////////////////////////////////////////////////////////////////////////////

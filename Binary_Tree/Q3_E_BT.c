@@ -101,7 +101,25 @@ int main()
 int countOneChildNodes(BTNode *node)
 
 {
-    /* add your code here */
+    /*
+    자식이 1개인 노드의 합을 구하면 된다.
+    NULL이면 0임을 예외처리
+    재귀를 돌려서 자식이 있는지 확인
+    노드들 중에서 자식이 1개 인 노드를 모두 더해서 출력 3번째 줄
+    자식이 1이 아니라면, 다음 노드 탐색
+    */
+    if (node == NULL)  return 0;    // 예외 케이스
+
+    int count = 0;
+
+    // 자식이 하나만 있는 경우 체크(두가지 케이스)
+    if ((node->left == NULL && node->right != NULL) ||
+        (node->left != NULL && node->right == NULL)) {
+        count = 1;
+    }
+
+    // 재귀적으로 자식들도 검사
+    return count + countOneChildNodes(node->left) + countOneChildNodes(node->right);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

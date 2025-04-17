@@ -113,13 +113,11 @@ void recursiveReverse(Queue *q)
 큐가 size만큼 재귀적으로 뒤집어서 출력하면
 뒤집어진 큐를 구현할 수 있다. 
 */
-ListNode *temp
-
-if(q->ll.head == NULL)
-return;
-temp = dequeue(q)
-recursiveReverse(q);
-enqueue(1, temp);
+	if(q->ll.head == NULL)
+	return;
+	int temp = dequeue(q);
+	recursiveReverse(q);
+	enqueue(q, temp);
 }
 
 //////////////////////////////////////////////////////////////////

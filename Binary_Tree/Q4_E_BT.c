@@ -103,7 +103,22 @@ int main()
 int sumOfOddNodes(BTNode *node)
 
 {
-    /* add your code here */
+    /*
+    간단히 노드 값이 홀수인 값들의 합을 반환하는 재귀함수를 구현한다.
+    node->item 값을 2와 나눠서 나머지가 1이면 홀수이다.
+    그값들을 따로 빼서 더하면 될 것 같다.
+    */
+
+    if (node == NULL)  return 0;    // 예외 케이스
+
+    // 본인값이 2 나눈 나머지 1이면 홀수.
+    else if(node->item % 2 == 1) {
+        return(sumOfOddNodes(node->left) + sumOfOddNodes(node->right) + node->item);  // 본인값 더 해서 재귀
+    }
+
+    // 그외의 경우에는 계속 탐색(본인 값 더하지말고)
+    else
+        return countOneChildNodes(node->left) + countOneChildNodes(node->right);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

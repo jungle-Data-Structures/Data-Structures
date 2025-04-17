@@ -111,7 +111,12 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+/*
+특정값(value)이 나오기 전까지 계속 pop을 수행한 후
+특정값이 나오면 pop을 중단하고 빼온 값을 출력한다.
+*/
+	while(!isEmptyStack(s) && peek(s) != value)  //peek을 사용해서 스택의 가장 위에 있는 항목을 확인해서 값이 Value가 아니면 pop
+	pop(s);   //pop 된값이 출력되어 value까지 값을 출력한다.
 }
 
 //////////////////////////////////////////////////////////////////////////////////

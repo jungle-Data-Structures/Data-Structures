@@ -104,7 +104,76 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+/*
+주어진 소, 중, 대 괄호에 대해 짝이 맞는지 확인하여 짝이 맞다면 balanced를 출력합니다.
+스택을 통해서 하나씩 순회하며 짝이 맞는지 확인합니다.
+그 이후 짝이 맞으면 수를 1 올리고, 짝이 맞지 않으면 에러를 출력합니다.
+*/
+/*
+Stack stack;
+stack.ll.head = NULL;
+stack.ll.size = 0;
+int i = 0;
+
+while(expression[i]) {
+	char exp = expression[i];   // expression 자료형은 char
+
+	// 여는 괄호 스택의 push
+	if (exp == '(' || exp =='{' || exp =='[') {
+		push(&stack, exp);
+	}
+
+	// 닫는 괄호 시, 스택에서 짝이 맞는지 확인후 pop
+	else if (exp == ')' || exp == '}' || exp ==']') {
+		if (isEmptyStack(&stack))
+		return 1;
+
+		char top = peek(&stack);
+
+		if ((exp == ')' && top == '(') || (exp == '}'  && top == '{') || (exp == ']'  && top == '[')) {
+			pop(&stack);
+		}
+		else {
+			return 1;
+		}
+	}
+	i++;
+}
+// 모든 괄호가 정상적으로 짝이 맞으면 스택은 비워 있어야한다. 중복이면 안되므로
+return isEmptyStack(&stack) ? 0 : 1;
+}
+*/
+
+
+Stack stack;
+stack.ll.head = NULL;
+stack.ll.size = 0;
+int i = 0;
+
+// ASCII코드  () -> 40,41   [] -> 91,93   {} -> 123,125 
+while(expression[i])
+{
+	char exp = expression[i];   
+    // expression 자료형은 char로 아스키코드가 담길 것이다.
+	// 해당부분에서 현재 읽고 있는 닫힌 괄호.
+
+	if(peek(&stack) == exp -1 || peek(&stack) == exp -2)	
+    // ASCII 코드에서 1, 2차이 나는 경우
+	// peek(&stack) 부분에서 마지막에 들어간 열린 괄호 검사
+	// []일시, 91 == 93 - 2 가 성립되므로 pop
+		pop(&stack);
+
+	else     
+    // 그외에 경우 처리(push)
+		push(&stack,exp);
+	
+	i += 1;    // 다음 인자 확인
+}
+
+if(isEmptyStack(&stack))
+	return 0;  // 스택이 비었으면 균형이 잡힘을 출력
+else
+	return 1;
 }
 
 ////////////////////////////////////////////////////////////
